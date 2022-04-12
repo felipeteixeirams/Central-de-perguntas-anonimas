@@ -1,33 +1,33 @@
-import Modal from './modal.js';
+import Modal from './modal.js'
 
 const modal = Modal()
 
-/* Quando o botao 'marcados como lido' é clicado a moral será aberta */
-const checkButtons = document.querySelectorAll(".actions a.check")
 const modalTitle = document.querySelector('.modal h2')
 const modalDescription = document.querySelector('.modal p')
 const modalButton = document.querySelector('.modal button')
 
+// Armazena botões com a classe 'check'
+const checkButtons = document.querySelectorAll(".actions a.check")
+
 checkButtons.forEach(button => {
-
-    //adicionar a escuta
-    button.addEventListener("click", event => {
-
-        //abrir modal
-        modal.open()
-    })
-
+    //adicionar o evento de clique
+    button.addEventListener("click", handleClick)
 })
 
-/*Quando o botao 'delete' for clicado a modal será aberta*/
-const deleteButtons = document.querySelectorAll(".actions a.delete")
+// Quando o botao 'delete' for clicado a modal será aberta
+const deleteButton = document.querySelectorAll(".actions a.delete")
 
-deleteButtons.forEach(button => {
-
-    //adicionar a escuta
-    button.addEventListener("click", event => {
-
-        //abrir modal
-        modal.open()
-    })
+deleteButton.forEach(button => {
+    //adiciona o evento de clique
+    button.addEventListener("click", (event) => handleClick(event, false))
 })
+
+function handleClick(event, check = true){
+    //abrir modalTitle
+    const text = check ? "Marcar como lida" : "Excluir"
+    
+    modalTitle.innerHTML = `${text} esta pergunta`
+    modalDescription.innerHTML = `Tem certeza que deseja ${text.toLowerCase()} esta pergunta?`
+    modalButton.innerHTML = `Sim, ${text.toLowerCase()}`
+    modal.open()
+}
